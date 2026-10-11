@@ -3,6 +3,8 @@
 // @deno-types="./asset-url.d.ts"
 import tileUrl from "./assets/tile.svg?no-inline";
 
+let counter: number = 0;
+
 const app = document.querySelector<HTMLElement>("#app")!;
 
 const heading = document.createElement("h1");
@@ -15,6 +17,14 @@ image.width = 96;
 image.height = 96;
 
 const message = document.createElement("p");
-message.textContent = "Your project starts here.";
+message.textContent = " - start with a button and increment it";
+
+app.innerHTML = `
+  <button id="button" style="padding: 10px; font-size: 1.2rem;">BUTTON</button>
+`;
+
+const button = document.getElementById("button")!;
+button.addEventListener("click", () => {
+});
 
 app.append(heading, image, message);
