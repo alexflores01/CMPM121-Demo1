@@ -70,7 +70,6 @@ app.innerHTML = `
 
 // element consts
 const counterDisplay = document.getElementById("counter")!;
-const rateDisplay = document.getElementById("rate")!;
 
 function createButton(
   zoneId: string,
