@@ -666,6 +666,7 @@ function renderButtons() {
 }
 
 function updateUI() {
+  document.title = `${formatNumber(numTiles)} Ores - Mines`;
   counterDisplay.textContent = `${formatNumber(numTiles)} Ores`;
   rateDisplay.textContent = `${getEffectiveIdleRate().toFixed(1)} Ores/sec`;
   soulDisplay.textContent = `Souls: ${
