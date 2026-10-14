@@ -617,7 +617,8 @@ function spawnFallingOre(url: string) {
 
 // Updates button HTML only when purchases or class changes happen
 function renderButtons() {
-  classDisplay.innerHTML = `Equipped: <strong>${currentClass.name}</strong><br><span style="color:#4ade80; font-size:12px;">▲ ${currentClass.upside}</span> • <span style="color:#f87171; font-size:12px;">▼ ${currentClass.downside}</span>`;
+  classDisplay.innerHTML =
+    `Equipped: <strong>${currentClass.name}</strong><br><span style="color:#4ade80; font-size:12px;">▲ ${currentClass.upside}</span> • <span style="color:#f87171; font-size:12px;">▼ ${currentClass.downside}</span>`;
 
   for (let i = 0; i < availableItems.length; i++) {
     const item = availableItems[i];
@@ -631,9 +632,11 @@ function renderButtons() {
           <span style="color:#fbbf24;">Owned: ${item.owned}</span>
         </div>
         <div class="card-sub">
-          Cost: <strong style="color:#fbbf24;">${currentCost.toFixed(
-            1,
-          )} Ores</strong>   <span style="color:#4ade80;">+${item.rate}/sec</span><br>
+          Cost: <strong style="color:#fbbf24;">${
+        currentCost.toFixed(
+          1,
+        )
+      } Ores</strong>   <span style="color:#4ade80;">+${item.rate}/sec</span><br>
           ${item.description}
         </div>
       `;
@@ -685,14 +688,19 @@ function updateUI() {
   document.title = `${formatNumber(numTiles)} Ores - Mines`;
   counterDisplay.textContent = `${formatNumber(numTiles)} Ores`;
   rateDisplay.textContent = `${getEffectiveIdleRate().toFixed(1)} Ores/sec`;
-  soulDisplay.textContent = `Souls: ${formatNumber(
-    souls,
-  )} | Reincarnations: ${reincarnationCount}`;
+  soulDisplay.textContent = `Souls: ${
+    formatNumber(
+      souls,
+    )
+  } | Reincarnations: ${reincarnationCount}`;
 
   const pendingSouls = calculatePendingSouls();
-  reincarnateButton.textContent = `Reincarnate (+${pendingSouls} Souls) — Mined: ${formatNumber(
-    totalOreThisLife,
-  )} / 1.0K`;
+  reincarnateButton.textContent =
+    `Reincarnate (+${pendingSouls} Souls) — Mined: ${
+      formatNumber(
+        totalOreThisLife,
+      )
+    } / 1.0K`;
   reincarnateButton.disabled = totalOreThisLife < 1000;
 
   // Update ore image only when tier changes
