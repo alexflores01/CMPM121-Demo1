@@ -20,6 +20,8 @@ let growthRate: number = 0;
 let lastTime: number = performance.now();
 let currentOreUrl: string = "";
 
+let isMuted: boolean = false;
+
 interface Ore {
   name: string;
   minRate: number;
@@ -348,8 +350,10 @@ image.addEventListener("click", (event: MouseEvent) => {
   const gained = getClickYield();
   numTiles += gained;
   totalOreThisLife += gained;
-  const mineSound = new Audio(mineUrl);
-  mineSound.play();
+  if (!isMuted) {
+    const mineSound = new Audio(mineUrl);
+    mineSound.play();
+  }
   spawnFallingOre(image.src);
   spawnFloatingText(event.clientX, event.clientY, `+${gained.toFixed(1)}`);
   image.animate(
@@ -361,6 +365,22 @@ image.addEventListener("click", (event: MouseEvent) => {
     120,
   );
   updateUI();
+});
+
+// Mute button
+const muteButton = document.createElement("button");
+muteButton.textContent = "🔊 Sound: On";
+muteButton.setAttribute("aria-pressed", "false");
+
+muteButton.style.position = "fixed";
+muteButton.style.top = "10px";
+muteButton.style.left = "10px";
+muteButton.style.zIndex = "10";
+
+muteButton.addEventListener("click", () => {
+  isMuted = !isMuted;
+  muteButton.textContent = isMuted ? "🔇 Sound: Off" : "🔊 Sound: On";
+  muteButton.setAttribute("aria-pressed", String(isMuted));
 });
 
 // Mining Upgrades section
@@ -509,7 +529,7 @@ rightPanel.className = "panel";
 rightPanel.append(shopHeading, perksContainer);
 
 dashboard.append(leftPanel, centerPanel, rightPanel);
-app.append(heading, dashboard);
+app.append(heading, muteButton, dashboard);
 
 // all the functions and game loop logic
 
@@ -588,10 +608,7 @@ function spawnFallingOre(url: string) {
   document.body.append(ore);
 
   ore.animate(
-    [
-      { transform: "translateY(0vh)" },
-      { transform: "translateY(110vh)" },
-    ],
+    [{ transform: "translateY(0vh)" }, { transform: "translateY(110vh)" }],
     2500,
   ).onfinish = () => {
     ore.remove();
@@ -600,8 +617,7 @@ function spawnFallingOre(url: string) {
 
 // Updates button HTML only when purchases or class changes happen
 function renderButtons() {
-  classDisplay.innerHTML =
-    `Equipped: <strong>${currentClass.name}</strong><br><span style="color:#4ade80; font-size:12px;">▲ ${currentClass.upside}</span> • <span style="color:#f87171; font-size:12px;">▼ ${currentClass.downside}</span>`;
+  classDisplay.innerHTML = `Equipped: <strong>${currentClass.name}</strong><br><span style="color:#4ade80; font-size:12px;">▲ ${currentClass.upside}</span> • <span style="color:#f87171; font-size:12px;">▼ ${currentClass.downside}</span>`;
 
   for (let i = 0; i < availableItems.length; i++) {
     const item = availableItems[i];
@@ -615,9 +631,9 @@ function renderButtons() {
           <span style="color:#fbbf24;">Owned: ${item.owned}</span>
         </div>
         <div class="card-sub">
-          Cost: <strong style="color:#fbbf24;">${
-        currentCost.toFixed(1)
-      } Ores</strong>   <span style="color:#4ade80;">+${item.rate}/sec</span><br>
+          Cost: <strong style="color:#fbbf24;">${currentCost.toFixed(
+            1,
+          )} Ores</strong>   <span style="color:#4ade80;">+${item.rate}/sec</span><br>
           ${item.description}
         </div>
       `;
@@ -668,15 +684,14 @@ function renderButtons() {
 function updateUI() {
   counterDisplay.textContent = `${formatNumber(numTiles)} Ores`;
   rateDisplay.textContent = `${getEffectiveIdleRate().toFixed(1)} Ores/sec`;
-  soulDisplay.textContent = `Souls: ${
-    formatNumber(souls)
-  } | Reincarnations: ${reincarnationCount}`;
+  soulDisplay.textContent = `Souls: ${formatNumber(
+    souls,
+  )} | Reincarnations: ${reincarnationCount}`;
 
   const pendingSouls = calculatePendingSouls();
-  reincarnateButton.textContent =
-    `Reincarnate (+${pendingSouls} Souls) — Mined: ${
-      formatNumber(totalOreThisLife)
-    } / 1.0K`;
+  reincarnateButton.textContent = `Reincarnate (+${pendingSouls} Souls) — Mined: ${formatNumber(
+    totalOreThisLife,
+  )} / 1.0K`;
   reincarnateButton.disabled = totalOreThisLife < 1000;
 
   // Update ore image only when tier changes
