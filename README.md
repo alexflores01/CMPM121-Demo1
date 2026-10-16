@@ -1,7 +1,28 @@
-# D1 starter
+# People Yearn For the Mines or Reincarnate?
 
-A minimal TypeScript/Vite browser project with Deno checks and GitHub Pages deployment.
+GitHub Pages URL:
 
-## Credits
+## About the game
 
-Tooling adapted from the [CMPM 121 Fall 2026 S01 starter](https://github.com/ucsc-cmpm-121-f26/s01-starter/tree/8974888efb6537be82e8eb069db139ea885039da), which has no explicit repository license. No new license is assigned to that material. The D1 scaffold and original SVG were authored with OpenAI GPT-6 Astra assistance. Dependencies retain their respective licenses.
+This is a mining and regrestion with incremental clicker game like cookie clicker.
+
+- **Mining Ores:** clicking the ore image in the center of the screen to mine Ores. As your production rate and total ores grow, you unlock higher ore tiers (Stone, Iron, Diamond, and Ruby). You can toggle the mining sound effect on the top left of the scrren.
+- **Mining Upgrades:** spending ores on upgrades to automate mining ores every secound.
+- **Reincarnation & Souls:** once you mine at least 1k ores in a run, then you can reincarnate, which resets the current ores and mining upgrades, increasing reincarnation counts will led to higher mining pickaxe tiers and gives souls.
+- **Pickaxe Classes:** earning more reincarnations unlocks new pickaxe classes on the left panel. each class has a upside and downside that could led to many playstyles.
+- **Soul Shop:** spending your souls on the right panel to but permanent perks that carry through regrestion into future lives.
+
+## How to Run the Build
+
+Run these commands in the project root folder:
+
+deno task setup
+deno task dev
+
+## Requirments to run game
+
+have deno installed, VS Code
+links to both:
+
+- **Deno:** https://deno.com/
+- **VS Code** https://code.visualstudio.com/download
