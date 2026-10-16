@@ -288,7 +288,7 @@ style.textContent = `
     display: flex;
     justify-content: space-between;
     align-items: baseline;
-    flex-warp: wrap;
+    flex-warp: warp;
     gap: 6px;
     font-weight: bold;
     font-size: 14px;
